@@ -1,10 +1,12 @@
 'use strict';
 
-// Selecting element
+// Selecting
+const player0El = document.querySelector('.player--0');
+const player1El = document.querySelector('.player--1');
 const score0El = document.querySelector('#score--0');
 const score1El = document.querySelector('#score--1');
-const current0EL = document.getElementById('curent--0');
-const current1EL = document.getElementById('curent--1');
+const current0EL = document.getElementById('current--0');
+const current1EL = document.getElementById('current--1');
 
 const diceEl = document.querySelector('.dice');
 const btnNew = document.querySelector('.btn--new');
@@ -17,6 +19,7 @@ score1El.textContent = 0;
 diceEl.classList.add('hidden');
 
 let currentScore = 0;
+let activePlayer = 0;
 
 //Rolling dice funcionality
 btnRoll.addEventListener('click', function () {
@@ -31,8 +34,14 @@ btnRoll.addEventListener('click', function () {
   if (dice !== 1) {
     // Add dice to current score
     currentScore += dice;
-    current0EL.textContent = currentScore;
+    document.getElementById(
+      `current--${activePlayer}`
+    ).textContent = currentScore;
   } else {
     // Switch to nexr player
+    document.getElementById(`current--${activePlayer}`).textContent = 0;
+    activePlayer = activePlayer === 0 ? 1 : 0;
+    player0El.classList.toggle('player--active');
+    player1El.classList.toggle('player--active');
   }
 });
